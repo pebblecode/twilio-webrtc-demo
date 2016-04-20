@@ -1,0 +1,16 @@
+{
+  "name": "node-twilio-webrtc",
+  "version": "0.0.1",
+  "description": "POC with a Node.js server and Twilio WebRTC client",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Jaz Lalli",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~4.13.4",
+    "twilio": "~2.9.1"
+  }
+}
