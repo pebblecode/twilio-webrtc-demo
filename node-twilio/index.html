@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Node.js & Twilio WebRTC</title>
+    <link rel="stylesheet" href="site.css">
+  </head>
+  <body>
+
+    <h1>Twilio WebRTC Demo</h1>
+
+    <div class="container">
+      <input id="name" type="text" placeholder="Enter your name" />
+      <button id="start">Let's Go</button>
+      <label id="username"></label>
+
+      <div id="media" class="container">
+        <div class="preview">
+          <div id="local-media" class="local-viewfinder container"></div>
+          <button id="preview-btn">Preview My Camera</button>
+        </div>
+
+        <div id="remote-media" class="local-viewfinder container"></div>
+
+        <div id="invite-controls" class="container">
+          <p class="instructions">Invite someone (i.e. yourself)</p>
+          <input id="invite-to" type="text" placeholder="Identity to invite" />
+          <button id="invite-btn">Send Invite</button>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="//media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
+    <script src="//media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
+
+    <script src="main.js"></script>
+  </body>
+</html>

@@ -9,10 +9,13 @@
   var inviteTo = document.getElementById('invite-to');
   var inviteBtn = document.getElementById('invite-btn');
 
+  var main = document.getElementById('media');
+  var nameInput = document.getElementById('name');
+  var username = document.getElementById('username');
+  var start = document.getElementById('start');
 
   var requestToken = function requestToken(callback) {
-    var id = location.pathname.split('/')[1];
-    fetch('/token/'+id)
+    fetch('/token/'+username.value)
       .then(
         function(response) {
           if (response.status !== 200) {
@@ -29,6 +32,32 @@
         console.log('Fetch Error:', err);
       });
   };
+
+  start.addEventListener('click', function (e) {
+    if (!nameInput.value) return false;
+
+    username.value = nameInput.value;
+    main.style.cssText = 'display: block;';
+
+    requestToken(function (credentials) {
+
+      // Create an AccessManager to manage our Access Token
+      var accessManager = new Twilio.AccessManager(credentials.token);
+
+      // Create a Conversations Client and connect to Twilio's backend
+      twilioClient = new Twilio.Conversations.Client(accessManager);
+      twilioClient.listen().then(function() {
+        console.log('Connected to Twilio as:', credentials.identity);
+
+        twilioClient.on('invite', function (invite) {
+          console.log('Incoming invite from: ' + invite.from);
+          invite.accept().then(setupConversation);
+        });
+      }, function (error) {
+        console.log('Could not connect to Twilio: ' + error.message);
+      });
+    });
+  });
 
   var setupConversation = function setupConversation(conversation) {
     console.log('In an active Conversation');
@@ -57,26 +86,6 @@
       activeConversation = null;
     });
   };
-
-  document.addEventListener('DOMContentLoaded', function (e) {
-    requestToken(function (credentials) {
-      // Create an AccessManager to manage our Access Token
-      var accessManager = new Twilio.AccessManager(credentials.token);
-
-      // Create a Conversations Client and connect to Twilio's backend
-      twilioClient = new Twilio.Conversations.Client(accessManager);
-      twilioClient.listen().then(function() {
-        console.log('Connected to Twilio as:', credentials.identity);
-
-        twilioClient.on('invite', function (invite) {
-          console.log('Incoming invite from: ' + invite.from);
-          invite.accept().then(setupConversation);
-        });
-      }, function (error) {
-        console.log('Could not connect to Twilio: ' + error.message);
-      });
-    });
-  })
 
   inviteBtn.addEventListener('click', function (e) {
     var id = inviteTo.value;

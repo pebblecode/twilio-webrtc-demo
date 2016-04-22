@@ -1,0 +1,15 @@
+{
+  "name": "node-tokbox",
+  "version": "0.0.1",
+  "description": "WebRTC experiments using TokBox SDKs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jaz Lalli",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~4.13.4",
+    "opentok": "~2.3.0"
+  }
+}
